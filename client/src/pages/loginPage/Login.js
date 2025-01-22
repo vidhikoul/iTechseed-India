@@ -1,15 +1,11 @@
-import React from 'react'
-import Header from '../../components/Header';
+import React from 'react';
+
 function Login() {
   return (
-   <>
-   <Header/>
-   <div className="login-content">
-        <h1>Welcome to Login Page</h1>
-        {/* Add your login form or other elements */}
-      </div>
-   </>
-  )
+    <div className="login-content">
+      <h1>Welcome to Login Page</h1>
+    </div>
+  );
 }
 
-export default Login
+export default Login; // Default export
