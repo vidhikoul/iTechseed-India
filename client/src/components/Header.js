@@ -1,35 +1,55 @@
-// import Container from 'react-bootstrap/Container';
-// import Nav from 'react-bootstrap/Nav';
-// import Navbar from 'react-bootstrap/Navbar';
-// import NavDropdown from 'react-bootstrap/NavDropdown';
-// import React from 'react';
+import React from 'react';
+import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 
-// function BasicExample() {
-//   return (
-//     <Navbar expand="lg" className="bg-body-tertiary" style={{ backgroundColor: 'lightblue' }}>
-//       <Container>
-//         <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-//         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-//         <Navbar.Collapse id="basic-navbar-nav">
-//           <Nav className="me-auto">
-//             <Nav.Link href="#home">Home</Nav.Link>
-//             <Nav.Link href="#link">Link</Nav.Link>
-//             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-//               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-//               <NavDropdown.Item href="#action/3.2">
-//                 Another action
-//               </NavDropdown.Item>
-//               <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-//               <NavDropdown.Divider />
-//               <NavDropdown.Item href="#action/3.4">
-//                 Separated link
-//               </NavDropdown.Item>
-//             </NavDropdown>
-//           </Nav>
-//         </Navbar.Collapse>
-//       </Container>
-//     </Navbar>
-//   );
-// }
+function Header() {
+  return (
+    <Navbar expand="lg" className="bg-body-tertiary">
+      <Container>
+        {/* Logo */}
+        <Navbar.Brand href="/">
+          <img
+            src="/Danalogo.png" 
+            alt="Dana Web Logo"
+            href="https://www.Dana.com" 
+            width="40"
+            height="40"
+            className="d-inline-block align-top"
+          />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="navbar-nav" />
+        <Navbar.Collapse id="navbar-nav">
+          {/* Navigation Items */}
+          <Nav className="ms-auto">
+            <Nav.Link href="/overview">Overview</Nav.Link>
+            <NavDropdown title="Admin Panel" id="admin-panel-dropdown">
+              <NavDropdown.Item href="/admin/user-management">
+                User Management
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/admin/inventory-management">
+                Inventory Management
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/admin/clients">
+                Client & Supplier Management
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/admin/sap-import">
+                SAP Data Import
+              </NavDropdown.Item>
+            </NavDropdown>
+            <NavDropdown title="Transactions" id="transactions-dropdown">
+              <NavDropdown.Item href="/transactions">
+                Transaction Tracking
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/challan-management">
+                Challan Management
+              </NavDropdown.Item>
+            </NavDropdown>
+            <Nav.Link href="/mobile-integration">Mobile Integration</Nav.Link>
+            <Nav.Link href="/settings">Settings</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
+}
 
-// export default BasicExample;
+export default Header;
