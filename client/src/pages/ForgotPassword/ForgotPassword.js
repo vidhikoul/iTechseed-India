@@ -1,7 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
 import "./ForgotPassword.css"; // Add custom styles if necessary
 
 const ForgotPassword = () => {
+  const navigate = useNavigate(); // ✅ Initialize navigate function
+
+  const handleSignup = (e) => {
+    e.preventDefault(); // ✅ Prevent full-page reload
+    navigate("/Registration"); // ✅ Navigate to Signup page
+  };
+
   return (
     <div className="container-fluid vh-100 d-flex align-items-center justify-content-center bg-light">
       <div className="row w-100 mx-3">
@@ -31,7 +39,7 @@ const ForgotPassword = () => {
           </form>
           <div className="mt-3 text-center">
             <span>Don’t have an account? </span>
-            <a href="/signup" className="text-primary">
+            <a href="#" className="text-primary" onClick={handleSignup}>
               Sign up
             </a>
           </div>
@@ -40,12 +48,12 @@ const ForgotPassword = () => {
         {/* Right Section - Image */}
         <div className="col-md-6 d-none d-md-block">
           <div className="d-flex justify-content-center align-items-center h-100">
-          <img
-            src="forgot.png"
-            alt="Illustration"
-            className="img-fluid"
-            style={{ maxHeight: "400px", objectFit: "contain" }}
-          />
+            <img
+              src="forgot.png"
+              alt="Illustration"
+              className="img-fluid"
+              style={{ maxHeight: "400px", objectFit: "contain" }}
+            />
           </div>
         </div>
       </div>

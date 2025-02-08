@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
 
 const RegisterPage = () => {
+  const navigate = useNavigate(); // ✅ Initialize navigate function
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -25,6 +28,11 @@ const RegisterPage = () => {
       return;
     }
     console.log("Form submitted", formData);
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault(); // ✅ Prevent default behavior of anchor tag
+    navigate("/home"); // ✅ Redirect to Login page
   };
 
   return (
@@ -105,15 +113,13 @@ const RegisterPage = () => {
                 I agree to all <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>
               </label>
             </div>
-            <button
-              type="submit"
-              className="btn btn-primary w-100"
-            >
+            <button type="submit" className="btn btn-primary w-100">
               CREATE ACCOUNT
             </button>
           </form>
           <p className="text-center mt-4">
-            Already have an account? <a href="#">Log in</a>
+            Already have an account?{" "}
+            <a href="#" onClick={handleLogin}>Log in</a> {/* ✅ Use navigate function */}
           </p>
         </div>
       </div>
