@@ -1,13 +1,13 @@
 import React from "react";
-import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
-import "./ForgotPassword.css"; // Add custom styles if necessary
+import { useNavigate } from "react-router-dom";
+import "./ForgotPassword.css"; 
 
 const ForgotPassword = () => {
-  const navigate = useNavigate(); // ✅ Initialize navigate function
+  const navigate = useNavigate(); 
 
   const handleSignup = (e) => {
-    e.preventDefault(); // ✅ Prevent full-page reload
-    navigate("/Registration"); // ✅ Navigate to Signup page
+    e.preventDefault(); 
+    navigate("/Registration"); 
   };
 
   return (

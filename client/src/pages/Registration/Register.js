@@ -9,6 +9,7 @@ const RegisterPage = () => {
     lastName: "",
     email: "",
     password: "",
+    role: "", // ✅ Add role field
     termsAccepted: false,
   });
 
@@ -36,7 +37,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="container vh-100 d-flex align-items-center justify-content-center">
+    <div className="container vh-100 d-flex align-items-center justify-content-center overflow-hidden">
       <div className="row w-100 shadow-lg rounded overflow-hidden bg-white">
         {/* Image Section */}
         <div className="col-md-6 d-flex align-items-center justify-content-center bg-light">
@@ -101,6 +102,24 @@ const RegisterPage = () => {
                 required
               />
             </div>
+
+            {/* ✅ Role Selection Dropdown */}
+            <div className="mb-3">
+              <select
+                name="role"
+                value={formData.role}
+                onChange={handleInputChange}
+                className="form-control"
+                required
+              >
+                <option value="" disabled>Select Role</option>
+                <option value="admin">Admin</option>
+                <option value="operator">Operator</option>
+                <option value="manager">Manager</option>
+                <option value="security guard">Security Guard</option>
+              </select>
+            </div>
+
             <div className="form-check mb-3">
               <input
                 type="checkbox"

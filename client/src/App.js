@@ -10,7 +10,7 @@ import Registration from "./pages/Registration/Register";
 import Dashboard from './components/Dashboard';
 import LoginPage from './pages/LoginPage/Login';
 import OverviewPage from './pages/Overview/Overview';
-
+import AdminPanel from './pages/AdminPanel/AdminPanel';
 const Sidebar = () => {
   return (
     <div className="bg-info text-white d-flex flex-column p-3" style={{ width: '250px', height: '100vh' }}>
@@ -60,6 +60,7 @@ function App() {
               <Route path="/overview" element={<OverviewPage />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/Dashboard" element={<Dashboard />} />
+              <Route path="/AdminPanel" element={<AdminPanel/>} />
 
               {/* Example Admin Routes */}
               {/* <Route path="/admin" element={<div>Admin Panel</div>} />
@@ -69,7 +70,7 @@ function App() {
               <Route path="/settings" element={<div>Settings Page</div>} /> */}
             </Routes>
           </main>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </div>
     </Router>

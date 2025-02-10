@@ -1,22 +1,22 @@
 import React from "react";
-import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
+import { useNavigate } from "react-router-dom"; 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const LoginPage = ({ setIsLoggedIn }) => {
-  const navigate = useNavigate(); // ✅ Define navigate
+  const navigate = useNavigate(); 
 
   const handleLogin = (e) => {
-    e.preventDefault(); // Prevent page reload
-    setIsLoggedIn(true); // Set login state
-    navigate("/home"); // Redirect to home page
+    e.preventDefault(); 
+    setIsLoggedIn(true); 
+    navigate("/home"); 
   };
 
   const handleSignUp = () => {
-    navigate("/registration"); // ✅ Redirect to Registration page
+    navigate("/registration"); 
   };
 
   const handleForgotPassword = () => {
-    navigate("/forgot-password"); // ✅ Redirect to Forgot Password page
+    navigate("/forgot-password"); 
   };
 
   return (
