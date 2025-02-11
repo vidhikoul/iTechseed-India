@@ -1,10 +1,8 @@
 import React from 'react'
 import './Usermanagement.css'
-import Sidebar from '../../components/Sidebar'
 function Usermanagement() {
   return (
     <div>
-        <Sidebar/>
         <div class="container">
         <h2 class="title">&lt; User Management</h2>
         <div class="top-bar">
@@ -90,7 +88,6 @@ function Usermanagement() {
         </div>
         
     </div>
-
 
       
     </div>

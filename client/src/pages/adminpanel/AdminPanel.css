@@ -1,47 +1,58 @@
-
-#continer{
+#continer {
   display: flex;
   width: 100%;
-}
-
-#left_content{
-  width: 25%;
-  color:#fff;
-  background-color: #58A4B0;
-  padding: 2rem;
   height: 100vh;
-  float: left;
 }
 
-#right_content{
-  color: #000;
-  width: 100%;
+#left_content {
+  width: 25%;
+  background-color: #58A4B0;
+  color: white;
+  padding: 2rem;
+}
+
+#right_content {
+  flex: 1; /* Make right side take full remaining space */
   display: flex;
   flex-wrap: wrap;
-  place-content: center;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
-#user_management, #inventory_management, #client_management, #sap_data{
+#user_management,
+#inventory_management,
+#client_management,
+#sap_data {
   width: 45%;
   height: 40%;
-  display: inline-block;
-  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
   border-radius: 10px;
-  margin:10px 10px 20px 10px;
-  padding: 15px 0 0 15px;
+  margin: 10px;
+  padding: 20px;
   font-size: 18px;
   font-weight: bold;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer; /* ✅ Add pointer cursor */
+  transition: transform 0.2s;
+}
+
+#user_management:hover,
+#inventory_management:hover,
+#client_management:hover,
+#sap_data:hover {
+  transform: scale(1.05); /* ✅ Add hover effect */
 }
 
 #user_management img,
 #inventory_management img,
 #client_management img,
-#sap_data img{
-
-  display: block;
-  padding: 1px 55px;
-  height: 65%;
-  width:50%;
-  margin: 0 auto;
+#sap_data img {
+  width: 50%;
+  height: auto;
+  margin-top: 10px;
 }
