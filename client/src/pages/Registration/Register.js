@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // ✅ Import Axios
+import axios from "axios"; 
+import { Registrationvalidation } from "./Registrationvalidation";
 
 const RegisterPage = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
+    first_name: "",
+    last_name: "",
+    user_name: "",
     password: "",
-    role: "",
+    confirm_password: "",
+    role: "admin",  // Default role
     termsAccepted: false,
   });
+
+  const [errors, setErrors] = useState({});
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -23,34 +27,51 @@ const RegisterPage = () => {
     setFormData({ ...formData, termsAccepted: e.target.checked });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Run validation
+    const validationErrors = Registrationvalidation(formData);
+    setErrors(validationErrors);
+
+    // If there are validation errors, stop submission
+    if (Object.keys(validationErrors).length > 0) {
+      return;
+    }
 
     if (!formData.termsAccepted) {
       alert("You must accept the Terms of Use and Privacy Policy.");
       return;
     }
 
-    try {
-      const response = await axios.post("http://localhost:8800/register", formData);
+    axios
+      .post("http://localhost:8800/Registration", formData)
+      .then((res) => {
+        console.log("Registration successful:", res.data);
+        navigate("/");
+      })
+      .catch((err) => console.log("Registration error:", err));
+  };
 
-      if (response.status === 201) {
-        alert("User registered successfully!");
-        navigate("/home"); // ✅ Redirect after successful registration
-      }
-    } catch (error) {
-      console.error("Registration Error:", error.response?.data || error.message);
-      alert("Registration failed! Please try again.");
-    }
+  const handleLogin = (e) => {
+    e.preventDefault();
+    navigate("/"); 
   };
 
   return (
-    <div className="container vh-100 d-flex align-items-center justify-content-center overflow-hidden">
+    <div className="container-fluid vh-100 d-flex align-items-center justify-content-center">
       <div className="row w-100 shadow-lg rounded overflow-hidden bg-white">
+        {/* Image Section */}
         <div className="col-md-6 d-flex align-items-center justify-content-center bg-light">
-          <img src="login.png" alt="Illustration" className="img-fluid" style={{ maxHeight: "400px", objectFit: "contain" }} />
+          <img
+            src="login.png"
+            alt="Illustration"
+            className="img-fluid"
+            style={{ maxHeight: "400px", objectFit: "contain" }}
+          />
         </div>
 
+        {/* Form Section */}
         <div className="col-md-6 p-5">
           <h2 className="mb-4">REGISTER</h2>
           <p className="text-muted mb-4 font-weight-bold">
@@ -59,37 +80,111 @@ const RegisterPage = () => {
           <form onSubmit={handleSubmit}>
             <div className="row g-3 mb-3">
               <div className="col-6">
-                <input type="text" name="firstName" placeholder="First name" value={formData.firstName} onChange={handleInputChange} className="form-control" required />
+                <input
+                  type="text"
+                  name="first_name"
+                  placeholder="First name"
+                  value={formData.first_name}
+                  onChange={handleInputChange}
+                  className="form-control"
+                  required
+                />
+                {errors.first_name && <span className="text-danger">{errors.first_name}</span>}
               </div>
               <div className="col-6">
-                <input type="text" name="lastName" placeholder="Last name" value={formData.lastName} onChange={handleInputChange} className="form-control" required />
+                <input
+                  type="text"
+                  name="last_name"
+                  placeholder="Last name"
+                  value={formData.last_name}
+                  onChange={handleInputChange}
+                  className="form-control"
+                  required
+                />
+                {errors.last_name && <span className="text-danger">{errors.last_name}</span>}
               </div>
             </div>
             <div className="mb-3">
-              <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleInputChange} className="form-control" required />
+              <input
+                type="email"
+                name="user_name"
+                placeholder="Email"
+                value={formData.user_name}
+                onChange={handleInputChange}
+                className="form-control"
+                required
+              />
+              {errors.user_name && <span className="text-danger">{errors.user_name}</span>}
             </div>
             <div className="mb-3">
-              <input type="password" name="password" placeholder="Password (8 characters required)" value={formData.password} onChange={handleInputChange} className="form-control" required />
+              <input
+                type="password"
+                name="password"
+                placeholder="Password (8 characters required)"
+                value={formData.password}
+                onChange={handleInputChange}
+                className="form-control"
+                required
+              />
+              {errors.password && <span className="text-danger">{errors.password}</span>}
             </div>
+            {/* Confirm Password Field */}
             <div className="mb-3">
-              <select name="role" value={formData.role} onChange={handleInputChange} className="form-control" required>
-                <option value="" disabled>Select Role</option>
+              <input
+                type="password"
+                name="confirm_password"
+                placeholder="Confirm Password"
+                value={formData.confirm_password}
+                onChange={handleInputChange}
+                className="form-control"
+                required
+              />
+              {errors.confirm_password && <span className="text-danger">{errors.confirm_password}</span>}
+            </div>
+            {/* Role Dropdown */}
+            <div className="mb-3">
+              <select
+                name="role"
+                value={formData.role}
+                onChange={handleInputChange}
+                className="form-control"
+              >
+               
                 <option value="admin">Admin</option>
-                <option value="operator">Operator</option>
-                <option value="manager">Manager</option>
-                <option value="security guard">Security Guard</option>
+                <option value="Operator">Operator</option>
+                <option value="Manage">Manager</option>
+                <option value="Security guardr">Security guard</option>
               </select>
+              {errors.role && <span className="text-danger">{errors.role}</span>}
             </div>
             <div className="form-check mb-3">
-              <input type="checkbox" id="terms" checked={formData.termsAccepted} onChange={handleCheckboxChange} className="form-check-input" />
+              <input
+                type="checkbox"
+                id="terms"
+                checked={formData.termsAccepted}
+                onChange={handleCheckboxChange}
+                className="form-check-input"
+              />
               <label htmlFor="terms" className="form-check-label">
-                I agree to all <a href="Terms">Terms of Use</a> and <a href="Privacy">Privacy Policy</a>
-              </label>
+    I agree to all  
+    <span className="text-primary" style={{ cursor: "pointer", marginLeft: "5px" }} onClick={() => navigate("/terms")}>
+        Terms of Use
+    </span> 
+    <span style={{ margin: "0 5px" }}>and</span> 
+    <span className="text-primary" style={{ cursor: "pointer" }} onClick={() => navigate("/privacy")}>
+        Privacy Policy
+    </span>
+</label>
+
+
             </div>
-            <button type="submit" className="btn btn-primary w-100">CREATE ACCOUNT</button>
+            <button type="submit" className="btn btn-primary w-100">
+              CREATE ACCOUNT
+            </button>
           </form>
           <p className="text-center mt-4">
-            Already have an account? <a href="#" onClick={(e) => { e.preventDefault(); navigate("/home"); }}>Log in</a>
+            Already have an account?{" "}
+            <a href="#" onClick={handleLogin}>Log in</a>
           </p>
         </div>
       </div>

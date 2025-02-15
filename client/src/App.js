@@ -15,6 +15,7 @@ import Dashboard from './components/Dashboard';
 import LoginPage from './pages/LoginPage/Login';
 import OverviewPage from './pages/Overview/Overview';
 import AdminPanel from './pages/AdminPanel/AdminPanel';
+import DeviceManagement from './pages/DeviceManagement/DeviceManagement';
 // import SapDataImport from './pages/AdminPanel/SapDataImport';
 const Sidebar = () => {
   return (
@@ -35,6 +36,9 @@ const Sidebar = () => {
         </li>
         <li className="nav-item mb-3">
           <Link to="/challans" className="nav-link text-white">Challan Generation</Link>
+        </li>
+        <li className="nav-item mb-3">
+          <Link to="/device" className="nav-link text-white">Device Management</Link>
         </li>
       </ul>
       <div className="mt-auto">
@@ -63,7 +67,7 @@ function App() {
               {/* Other Routes */}
               <Route path="/Registration" element={<Registration />} />
               <Route path="/overview" element={<OverviewPage />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/ForgotPassword" element={<ForgotPassword />} />
               <Route path="/Dashboard" element={<Dashboard />} />
               <Route path="/AdminPanel" element={<AdminPanel/>} />
               <Route path="/Usermanagement" element={<Usermanagement />} /> {/* Ensure path matches navigate() */}

@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Sidebar = () => {
   return (
-    <div className="d-flex flex-column bg-info text-white p-3 vh-100" style={{ width: '300px', position: 'fixed', top: '0', left: '0' }}>
+<div className="d-flex flex-column text-white p-3 vh-100" style={{ width: '300px', position: 'fixed', top: '0', left: '0', background: '#58A4B0' }}>
       {/* Logo and Title */}
       <div className="text-center mb-4">
         <img src="/Danalogo.png" alt="Logo" style={{ width: '80px', height: '80px' }} />
@@ -36,6 +36,12 @@ const Sidebar = () => {
         <li className="nav-item mb-3">
           <Link to="/challans" className="nav-link text-white fw-bold">
             <img src="/contract.png" alt="Challan Icon" className="me-2" />Challan Generation
+          </Link>
+        </li>
+
+        <li className="nav-item mb-3">
+          <Link to="/device" className="nav-link text-white fw-bold">
+            <img src="/contract.png"  className="me-2" />Device Management
           </Link>
         </li>
       </ul>
