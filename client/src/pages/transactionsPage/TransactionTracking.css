@@ -1,0 +1,123 @@
+/* Ensure Transaction Tracking shifts to the right */
+.transaction-container {
+    margin-left: 300px; /* Adjust based on sidebar width */
+    padding: 20px;
+    width: calc(100% - 300px); /* Ensures it takes the remaining space */
+    background-color: white;
+}
+
+/* Filters and Search Bar */
+.filters {
+    display: flex;
+    justify-content: space-between; /* Search bar left, dropdowns right */
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* Search Bar */
+.search-bar {
+    width: 250px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Dropdown Container */
+.dropdown-container {
+    display: flex;
+    gap: 10px; /* Reduced gap between dropdowns */
+    align-items: center;
+}
+
+/* Dropdown Group - Label + Dropdown */
+.dropdown-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Labels for Dropdowns */
+.filter-label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+/* Dropdown Styling */
+.filter-dropdown {
+    width: 180px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+}
+
+/* Table Styling */
+.transaction-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.transaction-container th, 
+.transaction-container td {
+    padding: 10px;
+    text-align: left;
+}
+
+.transaction-container th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    display: inline-block;
+    text-align: center;
+}
+
+/* Status Colors */
+.status-badge.in-transit {
+    background-color: #007bff;
+    color: white;
+}
+
+.status-badge.delivered {
+    background-color: #28a745;
+    color: white;
+}
+
+.status-badge.closed {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    gap: 5px;
+}
+
+.pagination button {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.pagination button:hover {
+    background-color: #f1f1f1;
+}
+
+.pagination .active {
+    font-weight: bold;
+    background-color: #007bff;
+    color: white;
+    border: 2px solid black;
+}
