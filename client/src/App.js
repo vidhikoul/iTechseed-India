@@ -16,6 +16,7 @@ import LoginPage from './pages/LoginPage/Login';
 import OverviewPage from './pages/Overview/Overview';
 import AdminPanel from './pages/AdminPanel/AdminPanel';
 import DeviceManagement from './pages/DeviceManagement/DeviceManagement';
+import TransactionTracking from './pages/TransactionsPage/TransactionTracking';
 // import SapDataImport from './pages/AdminPanel/SapDataImport';
 const Sidebar = () => {
   return (
@@ -74,6 +75,7 @@ function App() {
               <Route path="/InventoryManagement" element={<InventoryManagement />} />
               <Route path="/ClientSupplierManagement" element={<ClientSupplierManagement />} />
               <Route path="/SAPDataImport" element={<SAPDataImport />} />
+              <Route path="/transactions" element={<TransactionTracking />} />
               {/* <Route path="/SapDataImport" element={<SapDataImport/>} /> */}
               {/* Example Admin Routes */}
               {/* <Route path="/admin" element={<div>Admin Panel</div>} />
