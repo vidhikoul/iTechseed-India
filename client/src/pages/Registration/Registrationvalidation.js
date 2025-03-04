@@ -15,7 +15,7 @@ export const Registrationvalidation = (formData) => {
         errors.last_name = "Last name must contain only letters";
     }
 
-    //  Email validation (Username)
+    // Email validation (Username)
     if (!formData.user_name.trim()) {
         errors.user_name = "Email is required";
     } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.user_name)) {
@@ -44,11 +44,11 @@ export const Registrationvalidation = (formData) => {
         errors.confirm_password = "Passwords do not match";
     }
 
-    // Role validation
-    const validRoles = ["admin", "Operator", "Manager", "Security guard"];
+    // Role validation (Fixed case sensitivity)
+    const validRoles = ["admin", "operator", "manager", "security_guard"];
     if (!formData.role) {
         errors.role = "Please select a role";
-    } else if (!validRoles.includes(formData.role)) {
+    } else if (!validRoles.includes(formData.role.toLowerCase().replace(" ", "_"))) {
         errors.role = "Invalid role selected";
     }
 

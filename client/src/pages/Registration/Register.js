@@ -55,7 +55,7 @@ const RegisterPage = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    navigate("/"); 
+    navigate("/Dashboard"); 
   };
 
   return (
@@ -143,20 +143,20 @@ const RegisterPage = () => {
             </div>
             {/* Role Dropdown */}
             <div className="mb-3">
-              <select
-                name="role"
-                value={formData.role}
-                onChange={handleInputChange}
-                className="form-control"
-              >
-               
-                <option value="admin">Admin</option>
-                <option value="Operator">Operator</option>
-                <option value="Manage">Manager</option>
-                <option value="Security guardr">Security guard</option>
-              </select>
-              {errors.role && <span className="text-danger">{errors.role}</span>}
-            </div>
+  <select
+    name="role"
+    value={formData.role}
+    onChange={handleInputChange}  // This ensures selection updates correctly
+    className="form-control"
+  >
+    <option value="admin">Admin</option>
+    <option value="operator">Operator</option>
+    <option value="manager">Manager</option>
+    <option value="security_guard">Security Guard</option>
+  </select>
+  {errors.role && <span className="text-danger">{errors.role}</span>}
+</div>
+
             <div className="form-check mb-3">
               <input
                 type="checkbox"
@@ -166,17 +166,8 @@ const RegisterPage = () => {
                 className="form-check-input"
               />
               <label htmlFor="terms" className="form-check-label">
-    I agree to all  
-    <span className="text-primary" style={{ cursor: "pointer", marginLeft: "5px" }} onClick={() => navigate("/terms")}>
-        Terms of Use
-    </span> 
-    <span style={{ margin: "0 5px" }}>and</span> 
-    <span className="text-primary" style={{ cursor: "pointer" }} onClick={() => navigate("/privacy")}>
-        Privacy Policy
-    </span>
-</label>
-
-
+                I agree to all <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>
+              </label>
             </div>
             <button type="submit" className="btn btn-primary w-100">
               CREATE ACCOUNT

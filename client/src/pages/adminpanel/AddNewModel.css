@@ -1,0 +1,30 @@
+.modal-content{
+    width: 650px;
+    height: 400px;
+}
+#model_form
+.form-control{
+    background: #D8DBE2;
+    border-radius: 15px;
+    padding: 10px;
+    border: none;
+}
+
+#model_form
+.form-label{
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+#model_form .btn-secondary{
+    background: #373F51;
+    border-radius: 15px;
+    padding: 10px;
+    width: 100%;
+    font-size: 13px;
+    margin: 28px 0;
+}
+
+.modal-title{
+    font-size: 18px;
+}

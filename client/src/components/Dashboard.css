@@ -1,17 +1,28 @@
+* {
+    font-family: "DM Sans", serif;
+}
+
 .sidebar-container {
-    width: 260px; /* Keep sidebar width */
-    min-height: 100vh;
+    width: 20%;
+    color: white;
+    padding: 2rem;
+    font-weight: 100;
 }
 
 .content-container {
-    flex-grow: 1;
-    padding: 20px;
-    margin-left: 10px; /* Shift content slightly to the right */
+    flex: 1; /* Make right side take full remaining space */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;/* Shift content slightly to the right */
 }
 
 .card {
-    height: 100%;
-    margin-bottom: 20px;
+    width: 100%; /* Ensures the card takes full column width */
+    min-width: 450px; /* Increased width */
+    max-width: 800px; /* Adjust as needed */
+    padding: 20px;
 }
 
 /* Fix Table Overflow */
@@ -31,21 +42,23 @@
 }
 
 .custom-row {
-    margin-right: 5px; /* Reduce negative margin */
-    margin-left: 10px; /* Shift row slightly right */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px; /* Add space between cards */
 }
 
 .custom-col {
-    padding-right: 10px; /* Increased padding */
-    padding-left: 15px;
-    margin-left: 60px; /* Increase margin to shift right */
+    flex: 1;
+    min-width: 450px; /* Increased min-width */
+    max-width: 800px; /* Increased max-width */
+    padding: 0px;
+    margin: 0 15px; /* Slightly increased margin */
 }
 
 /* Chart Container */
 .chart-container {
     width: 80%;
-    height: auto;
-    max-width: 320px; /* Slightly increased width */
+    height: 100%;
 }
 
 /* Footer */
