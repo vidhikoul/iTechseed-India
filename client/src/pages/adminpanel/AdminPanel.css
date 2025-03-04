@@ -1,58 +1,62 @@
-#continer {
-  display: flex;
-  width: 100%;
-  height: 100vh;
-}
-
-#left_content {
-  width: 25%;
-  background-color: #58A4B0;
-  color: white;
-  padding: 2rem;
-}
-
 #right_content {
-  flex: 1; /* Make right side take full remaining space */
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  grid-template-rows: repeat(2, auto); /* 2 rows */
+  gap: 20px;
   justify-content: center;
   align-items: center;
   padding: 20px;
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
+/* Box Styling */
 #user_management,
 #inventory_management,
 #client_management,
-#sap_data {
-  width: 45%;
-  height: 40%;
+#sap_data,
+#device_management {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: white;
   border-radius: 10px;
-  margin: 10px;
   padding: 20px;
   font-size: 18px;
   font-weight: bold;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  cursor: pointer; /* ✅ Add pointer cursor */
+  cursor: pointer;
   transition: transform 0.2s;
+  text-align: center;
+  width: 100%;
+  height: 100%;
 }
 
+/* Hover effect */
 #user_management:hover,
 #inventory_management:hover,
 #client_management:hover,
-#sap_data:hover {
-  transform: scale(1.05); /* ✅ Add hover effect */
+#sap_data:hover,
+#device_management:hover {
+  transform: scale(1.05);
 }
 
+/* Center Device Management */
+#device_management {
+  grid-column: span 2; /* Center it across two columns */
+  width: 50%;
+  margin: auto;
+}
+
+/* Image Styling */
 #user_management img,
 #inventory_management img,
 #client_management img,
-#sap_data img {
-  width: 50%;
+#sap_data img,
+#device_management img {
+  width: 80%;
   height: auto;
   margin-top: 10px;
 }

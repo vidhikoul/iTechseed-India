@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { Table, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "./TransactionTracking.css"; // Importing updated styles
 import Sidebar from "../../components/Sidebar";
 
 const transactionsData = [
     { client: "John Deere India", date: "03/01/2025", materialCode: "ABCD123456789", challanId: "1234567889", status: "In Transit" },
-    { client: "Spirit Corporation", date: "03/01/2025", materialCode: "ABCD123456789", challanId: "1234567889", status: "Closed" },
-    { client: "Caterpillar India", date: "03/01/2025", materialCode: "ABCD123456789", challanId: "1234567889", status: "Open" },
-    { client: "Force Motors", date: "03/01/2025", materialCode: "ABCD123456789", challanId: "1234567889", status: "In Transit" },
-    { client: "Fabpro Engineering", date: "03/01/2025", materialCode: "ABCD123456789", challanId: "1234567889", status: "Open" },
-    { client: "Fabpro Engineering", date: "03/01/2025", materialCode: "ABCD123456789", challanId: "1234567889", status: "Closed" },
-    { client: "Spirit Corporation", date: "03/01/2025", materialCode: "ABCD123456789", challanId: "1234567889", status: "Closed" }
+    { client: "Spirit Corporation", date: "03/01/2025", materialCode: "ABCD123456789", challanId: "2234567889", status: "Closed" },
+    { client: "Caterpillar India", date: "03/01/2025", materialCode: "ABCD123456789", challanId: "3234567889", status: "Open" },
+    { client: "Force Motors", date: "03/01/2025", materialCode: "ABCD123456789", challanId: "4234567889", status: "In Transit" },
+    { client: "Fabpro Engineering", date: "03/01/2025", materialCode: "ABCD123456789", challanId: "5234567889", status: "Open" },
+    { client: "Fabpro Engineering", date: "03/01/2025", materialCode: "ABCD123456789", challanId: "6234567889", status: "Closed" },
+    { client: "Spirit Corporation", date: "03/01/2025", materialCode: "ABCD123456789", challanId: "7234567889", status: "Closed" }
 ];
 
 const clients = [...new Set(transactionsData.map(t => t.client))]; // Unique clients
@@ -20,6 +21,7 @@ const TransactionTracking = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedClient, setSelectedClient] = useState("All");
     const [selectedStatus, setSelectedStatus] = useState("All");
+    const navigate = useNavigate(); // Initialize navigation
 
     // Filter transactions based on search, client, and status
     const filteredTransactions = transactionsData.filter((transaction) => {
@@ -29,73 +31,80 @@ const TransactionTracking = () => {
             (selectedStatus === "All" || transaction.status === selectedStatus)
         );
     });
+    const handleRowClick = (challanId) => {
+        navigate(`/transactionChallan/`); // Navigate to transaction challan page with challan ID
+    };
+
+    // const handleRowClick = (challanId) => {
+    //     navigate(`/transactionChallan/${challanId}`); // Navigate to transaction challan page with challan ID
+    // };
 
     return (
         <>
-        <Sidebar/>
-        <div className="transaction-container">
-            <h2 className="mb-3">All Transactions</h2>
+            <Sidebar />
+            <div className="transaction-container">
+                <h2 className="mb-3">All Transactions</h2>
 
-            {/* Filters Section */}
-            <div className="filters">
-                <Form.Control
-                    type="text"
-                    placeholder="Search"
-                    className="search-bar"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
+                {/* Filters Section */}
+                <div className="filters">
+                    <Form.Control
+                        type="text"
+                        placeholder="Search"
+                        className="search-bar"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
 
-                <div className="dropdown-container">
-                    <div className="dropdown-group">
-                        <label className="filter-label">Sort by: Client</label>
-                        <Form.Select value={selectedClient} onChange={(e) => setSelectedClient(e.target.value)} className="filter-dropdown">
-                            <option value="All">All Clients</option>
-                            {clients.map((client, index) => (
-                                <option key={index} value={client}>{client}</option>
-                            ))}
-                        </Form.Select>
-                    </div>
+                    <div className="dropdown-container">
+                        <div className="dropdown-group">
+                            <label className="filter-label">Sort by: Client</label>
+                            <Form.Select value={selectedClient} onChange={(e) => setSelectedClient(e.target.value)} className="filter-dropdown">
+                                <option value="All">All Clients</option>
+                                {clients.map((client, index) => (
+                                    <option key={index} value={client}>{client}</option>
+                                ))}
+                            </Form.Select>
+                        </div>
 
-                    <div className="dropdown-group">
-                        <label className="filter-label">Sort by: Status</label>
-                        <Form.Select value={selectedStatus} onChange={(e) => setSelectedStatus(e.target.value)} className="filter-dropdown">
-                            {statuses.map((status, index) => (
-                                <option key={index} value={status}>{status}</option>
-                            ))}
-                        </Form.Select>
+                        <div className="dropdown-group">
+                            <label className="filter-label">Sort by: Status</label>
+                            <Form.Select value={selectedStatus} onChange={(e) => setSelectedStatus(e.target.value)} className="filter-dropdown">
+                                {statuses.map((status, index) => (
+                                    <option key={index} value={status}>{status}</option>
+                                ))}
+                            </Form.Select>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            {/* Transaction Table */}
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>Client</th>
-                        <th>Date of Dispatch</th>
-                        <th>Material Code</th>
-                        <th>Challan ID</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {filteredTransactions.map((transaction, index) => (
-                        <tr key={index}>
-                            <td>{transaction.client}</td>
-                            <td>{transaction.date}</td>
-                            <td>{transaction.materialCode}</td>
-                            <td>{transaction.challanId}</td>
-                            <td>
-                                <span className={`status-badge ${transaction.status.replace(/\s/g, "-").toLowerCase()}`}>
-                                    {transaction.status}
-                                </span>
-                            </td>
+                {/* Transaction Table */}
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>Client</th>
+                            <th>Date of Dispatch</th>
+                            <th>Material Code</th>
+                            <th>Challan ID</th>
+                            <th>Status</th>
                         </tr>
-                    ))}
-                </tbody>
-            </Table>
-        </div>
+                    </thead>
+                    <tbody>
+                        {filteredTransactions.map((transaction, index) => (
+                            <tr key={index} onClick={() => handleRowClick(transaction.challanId)} style={{ cursor: "pointer" }}>
+                                <td>{transaction.client}</td>
+                                <td>{transaction.date}</td>
+                                <td>{transaction.materialCode}</td>
+                                <td>{transaction.challanId}</td>
+                                <td>
+                                    <span className={`status-badge ${transaction.status.replace(/\s/g, "-").toLowerCase()}`}>
+                                        {transaction.status}
+                                    </span>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            </div>
         </>
     );
 };

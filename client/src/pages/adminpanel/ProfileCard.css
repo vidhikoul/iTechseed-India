@@ -1,0 +1,49 @@
+/*----------- PROFILE CARD CSS-------------*/
+#profileCard_model .modal-content {
+    width: 500px;
+    height: 700px;
+}
+
+#profileCard_model .modal-header{
+    align-items: normal;
+}
+
+#profileCard_model .modal-body{
+    padding: 25px;
+    font-size: 13px;
+}
+
+#AccountStatus, #SecurityAccess, 
+#SeetingsPref, #ProfileButton{
+    margin: 0 0 30px 0;
+}
+
+#profileCard_model .col {
+    flex: none;
+    width: auto;
+}
+
+#ProfileButton{
+    text-align: center;
+    display: flex;
+}
+
+#ProfileButton .btn_user{
+    width: 185px;
+    font-size: 13px;
+    margin: 20px;
+    background-color: #373F51;
+    border-radius: 15px;
+    color: #fff;
+    padding: 5px;
+}
+
+#ProfileButton .btn_delet{
+    width: 185px;
+    font-size: 13px;
+    margin: 20px;
+    background-color: #D8DBE2;
+    border-radius: 15px;
+    padding: 5px;
+    border: none;
+}
