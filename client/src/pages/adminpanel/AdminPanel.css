@@ -1,0 +1,92 @@
+/* Main Container */
+#container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Sidebar */
+#left_content {
+  width: 250px;
+  flex-shrink: 0;
+  background-color: #f4f4f4;
+  padding: 10px;
+  height: 100vh;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Grid Layout for Content */
+#right_content {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(250px, 1fr)); /* Explicit 3 columns */
+  gap: 20px;
+  padding: 50px;
+  max-width: calc(100vw - 250px); /* Ensures it doesn't overflow */
+  box-sizing: border-box;
+  align-items: center;
+  justify-items: center;
+  height: 100vh; /* 👈 Add this line */
+  overflow-y: auto; 
+}
+
+/* Box Styling */
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-align: center;
+  min-width: 250px;
+  min-height: 200px;
+}
+
+/* Hover Effect */
+.box:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Image Styling */
+.box img {
+  width: 80%;
+  height: auto;
+  margin-top: 10px;
+}
+
+/* Force 3-2 Layout */
+.box:nth-child(4),
+.box:nth-child(5) {
+  grid-column: span 1;
+}
+
+/* Prevent Bottom Sliding Issues */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+  #right_content {
+    grid-template-columns: repeat(2, 1fr); /* 2 per row for medium screens */
+  }
+}
+
+@media (max-width: 600px) {
+  #right_content {
+    grid-template-columns: repeat(1, 1fr); /* 1 per row for small screens */
+  }
+}

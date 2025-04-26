@@ -1,0 +1,89 @@
+/* Make sure modal dialog is centered and responsive */
+.modal-dialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 100%;
+    height: 100%;
+}
+
+/* Modal Content Styling */
+.modal-content {
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 30px;
+    border-radius: 20px;
+    margin: auto;
+    background-color: #fff;
+}
+
+/* Form Input Styling */
+#model_form .form-control {
+    background: #D8DBE2;
+    border-radius: 15px;
+    padding: 10px;
+    border: none;
+    font-size: 14px;
+}
+
+/* Label Styling */
+#model_form .form-label {
+    font-size: 13px;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: 500;
+}
+
+/* Button Styling */
+#model_form .btn-secondary,
+#model_form .btn-primary {
+    background: #373F51;
+    border-radius: 15px;
+    padding: 10px;
+    width: 100%;
+    font-size: 14px;
+    margin-top: 28px;
+    border: none;
+}
+
+/* Modal Title Styling */
+.modal-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #222;
+}
+
+/* Trigger Button */
+#btn {
+    background-color: #373F51;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 12px;
+    border: none;
+    font-size: 14px;
+    margin: 20px 0;
+}
+
+#btn:hover {
+    background-color: #2c3242;
+    cursor: pointer;
+}
+
+/* Scroll support on smaller screens */
+@media (max-height: 700px) {
+    .modal-content {
+        max-height: 85vh;
+        overflow-y: auto;
+    }
+}
+
+/* Mobile friendly layout */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+}

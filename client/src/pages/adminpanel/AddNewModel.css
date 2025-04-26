@@ -1,0 +1,42 @@
+/* Full-page modal styling */
+.modal-content {
+    width: 100vw; /* 100% of viewport width */
+    height: 100vh; /* 100% of viewport height */
+    margin: 0;
+    border-radius: 0; /* Remove rounded corners for full-page */
+    border: none; /* Remove any borders */
+}
+
+/* Modal form styling */
+#model_form .form-control {
+    background: #D8DBE2;
+    border-radius: 15px;
+    padding: 10px;
+    border: none;
+}
+
+#model_form .form-label {
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+#model_form .btn-secondary {
+    background: #373F51;
+    border-radius: 15px;
+    padding: 10px;
+    width: 100%;
+    font-size: 13px;
+    margin: 28px 0;
+}
+
+.modal-title {
+    font-size: 18px;
+}
+
+/* Optional: Make modal dialog full screen */
+.modal-dialog {
+    max-width: none;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}

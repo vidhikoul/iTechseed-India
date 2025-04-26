@@ -1,0 +1,84 @@
+/* Table styling */
+.table-responsive {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+  }
+  
+  .table-responsive::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .table-responsive::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  .table-responsive::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+  }
+  
+  .table-responsive::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  
+  /* Table header sticky positioning */
+  .table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #f8f9fa;
+    z-index: 10;
+  }
+  
+  /* Table cell styling */
+  .table td, .table th {
+    white-space: nowrap;
+    padding: 12px 15px;
+  }
+  
+  /* Pagination styling */
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px 0;
+  }
+  
+  .page-nav, .page-number {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    border-radius: 3px;
+    min-width: 32px;
+    text-align: center;
+    margin: 0 2px;
+  }
+  
+  .page-number.active {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+  }
+  
+  .page-nav.disabled, .page-number.disabled {
+    color: #ccc;
+    cursor: not-allowed;
+    background: #f9f9f9;
+  }
+  
+  .page-ellipsis {
+    padding: 5px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .table-responsive {
+      font-size: 0.9rem;
+    }
+    
+    .table td, .table th {
+      padding: 8px 10px;
+    }
+  }

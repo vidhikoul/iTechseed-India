@@ -1,0 +1,78 @@
+* {
+    font-family: "DM Sans", serif;
+}
+
+.sidebar-container {
+    width: 20%;
+    color: white;
+    padding: 2rem;
+    font-weight: 100;
+}
+
+.content-container {
+    flex: 1; /* Make right side take full remaining space */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;/* Shift content slightly to the right */
+}
+
+.card {
+    width: 100%; /* Ensures the card takes full column width */
+    min-width: 450px; /* Increased width */
+    max-width: 800px; /* Adjust as needed */
+    padding: 20px;
+}
+
+/* Fix Table Overflow */
+.table-nowrap th,
+.table-nowrap td {
+    white-space: nowrap;
+}
+
+.transaction-box {
+    flex: 1;
+    min-width: 320px;
+    margin-bottom: 20px;
+}
+
+.transaction-box table {
+    width: 100%;
+}
+
+.custom-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px; /* Add space between cards */
+}
+
+.custom-col {
+    flex: 1;
+    min-width: 450px; /* Increased min-width */
+    max-width: 800px; /* Increased max-width */
+    padding: 0px;
+    margin: 0 15px; /* Slightly increased margin */
+}
+
+/* Chart Container */
+.chart-container {
+    width: 80%;
+    height: 100%;
+}
+
+/* Footer */
+.footer {
+    background-color: #f8f9fa;
+    text-align: left;
+    padding: 10px 25px; /* Increased left padding */
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font-size: 40px;
+    color: #6c757d;
+}
+
+.h3 {
+    margin-left: 30px; /* Shift header slightly to the right */
+}
