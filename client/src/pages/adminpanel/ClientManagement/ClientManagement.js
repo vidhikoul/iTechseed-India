@@ -120,7 +120,6 @@ function ClientManagement() {
                 placeholder="Search"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                style={{ color: '#000', backgroundColor: '#fff', border: '1px solid #ccc', padding: '5px' }}
               />
             </div>
 
@@ -172,6 +171,7 @@ function ClientManagement() {
             </tbody>
           </table>
 
+          {/* This is where the modal gets rendered */}
           {showClientModal && (
             <ClientDetailsModal 
               client={selectedClient} 

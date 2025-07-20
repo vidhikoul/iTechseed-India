@@ -1,18 +1,76 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../adminpanel/UserManagement.css';
 import Sidebar from '../../components/Sidebar';
 import { useNavigate } from 'react-router-dom';
+import DeviceDetailsModal from './DeviceDetailsModal';
+import EditDeviceModal from './EditDeviceModal';
+import AddDeviceModal from './AddDeviceModal';
 
 function DeviceManagement() {
+  const [devices, setDevices] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedDevice, setSelectedDevice] = useState(null);
+  const [showDeviceModal, setShowDeviceModal] = useState(false);
+  const [editingDevice, setEditingDevice] = useState(null);
+  const [showAddModal, setShowAddModal] = useState(false);
   const navigate = useNavigate();
 
-  // Dummy data for devices based on attached image content
-  const devices = [
-    { id: 1, name: 'Device A', type: 'Scanner', ip: '192.168.1.10', status: 'Active' },
-    { id: 2, name: 'Device B', type: 'Printer', ip: '192.168.1.11', status: 'Inactive' },
-    { id: 3, name: 'Device C', type: 'Terminal', ip: '192.168.1.12', status: 'Active' },
-    { id: 4, name: 'Device D', type: 'Controller', ip: '192.168.1.13', status: 'Maintenance' }
-  ];
+  useEffect(() => {
+    fetch('http://localhost:8800/api/devices')
+      .then(res => res.json())
+      .then(data => setDevices(data))
+      .catch(error => console.error('Error fetching devices:', error));
+  }, []);
+
+  const refreshDevices = () => {
+    fetch('http://localhost:8800/api/devices')
+      .then(res => res.json())
+      .then(data => setDevices(data))
+      .catch(error => console.error('Error refreshing devices:', error));
+  };
+
+  const handleDeviceClick = (device) => {
+    setSelectedDevice(device);
+    setShowDeviceModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowDeviceModal(false);
+    setSelectedDevice(null);
+  };
+
+  const handleEditDevice = (device) => {
+    setEditingDevice(device);
+  };
+
+  const handleDeleteDevice = (device) => {
+    if (!window.confirm(`Are you sure you want to delete device "${device.device_name}"?`)) return;
+
+    fetch(`/api/devices/${device.device_id}`, {
+      method: 'DELETE'
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error("Failed to delete device");
+        }
+        setDevices(prev => prev.filter(d => d.device_id !== device.device_id));
+        setShowDeviceModal(false);
+        alert(`Device "${device.device_name}" deleted successfully.`);
+      })
+      .catch(err => {
+        console.error("Error deleting device:", err);
+        alert("Error deleting device");
+      });
+  };
+
+  // Filter devices based on search term
+  const filteredDevices = devices.filter(device =>
+    device.device_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    device.device_type?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    device.ip_address?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    device.status?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    String(device.device_id).includes(searchTerm)
+  );
 
   return (
     <div className="d-flex">
@@ -24,15 +82,20 @@ function DeviceManagement() {
           <h2 className="title" id="h2Text" onClick={() => navigate("/AdminPanel")}>
             &lt; Device Management
           </h2>
+
           <div className="top-bar">
-            <input type="text" placeholder="Search" className="search-bar" />
+            <input
+              type="text"
+              placeholder="Search"
+              className="search-bar"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
             <span>
-              {/* Placeholder button for adding a new device */}
-              <button className="add-btn">Add New Device</button>
+              <button className="add-btn" onClick={() => setShowAddModal(true)}>+ Add New Device</button>
             </span>
           </div>
 
-          {/* Device Management Table */}
           <div id="ProfileCrad">
             <table>
               <thead>
@@ -45,13 +108,13 @@ function DeviceManagement() {
                 </tr>
               </thead>
               <tbody>
-                {devices.length > 0 ? (
-                  devices.map(device => (
-                    <tr key={device.id}>
-                      <td>{device.id}</td>
-                      <td>{device.name}</td>
-                      <td>{device.type}</td>
-                      <td>{device.ip}</td>
+                {filteredDevices.length > 0 ? (
+                  filteredDevices.map(device => (
+                    <tr key={device.device_id} onClick={() => handleDeviceClick(device)} style={{ cursor: "pointer", textDecoration: "underline" }}>
+                      <td>{device.device_id}</td>
+                      <td>{device.device_name}</td>
+                      <td>{device.device_type}</td>
+                      <td>{device.ip_address}</td>
                       <td>{device.status}</td>
                     </tr>
                   ))
@@ -63,6 +126,37 @@ function DeviceManagement() {
               </tbody>
             </table>
           </div>
+
+          {showDeviceModal && selectedDevice && (
+            <DeviceDetailsModal
+              device={selectedDevice}
+              onClose={handleCloseModal}
+              onEdit={() => handleEditDevice(selectedDevice)}
+              onDelete={() => handleDeleteDevice(selectedDevice)}
+            />
+          )}
+
+          {editingDevice && (
+            <EditDeviceModal
+              device={editingDevice}
+              onClose={() => setEditingDevice(null)}
+              onSave={() => {
+                setEditingDevice(null);
+                setShowDeviceModal(false);
+                refreshDevices();
+              }}
+            />
+          )}
+
+          {showAddModal && (
+            <AddDeviceModal
+              onClose={() => setShowAddModal(false)}
+              onSave={() => {
+                setShowAddModal(false);
+                refreshDevices();
+              }}
+            />
+          )}
         </div>
       </div>
     </div>

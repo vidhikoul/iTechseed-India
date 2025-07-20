@@ -4,25 +4,20 @@ import AddNewModel from './AddNewModel';
 import ProfileCard from './ProfileCard';
 import Sidebar from '../../components/Sidebar';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 function Usermanagement() {
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
 
-    const fetchUsers = () => {
-        axios.get('http://localhost:8800/users')
-            .then(response => {
-                console.log("Users fetched:", response.data);
-                setUsers(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching users:', error);
-            });
+    const refreshUsers = () => {
+        fetch('http://localhost:8800/users')
+            .then(res => res.json())
+            .then(data => setUsers(data))
+            .catch(error => console.error('Error refreshing users:', error));
     };
 
     useEffect(() => {
-        fetchUsers();
+        refreshUsers();
     }, []);
 
     return (
@@ -33,11 +28,11 @@ function Usermanagement() {
             <div className="content-container flex-grow-1 p-3">
                 <div className="container">
                     <h2 className="title" id="h2Text" onClick={() => navigate("/AdminPanel")}>&lt; User Management</h2>
-                    
+
                     <div className="top-bar">
                         <input type="text" placeholder="Search" className="search-bar" />
                         <span>
-                            <AddNewModel onUserAdded={fetchUsers} />
+                            <AddNewModel onUserAdded={refreshUsers} />
                         </span>
                     </div>
 
@@ -51,10 +46,10 @@ function Usermanagement() {
                                     <th>Role</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody style={{ cursor: "pointer", textDecoration: "underline" }}>
                                 {users.length > 0 ? (
                                     users.map(user => (
-                                        <ProfileCard key={user.user_id} user={user} />
+                                        <ProfileCard key={user.user_id} user={user} onUserDeleted={refreshUsers} />
                                     ))
                                 ) : (
                                     <tr><td colSpan="3">No users found.</td></tr>

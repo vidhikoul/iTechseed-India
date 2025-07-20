@@ -8,6 +8,10 @@
   height: 100%;
 }
 
+body {
+  margin-left: 100px;
+}
+
 #left_cont {
   width: 18%;
   color: white;

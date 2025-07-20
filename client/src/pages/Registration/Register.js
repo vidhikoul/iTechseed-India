@@ -143,17 +143,17 @@ const RegisterPage = () => {
             </div>
             {/* Role Dropdown */}
             <div className="mb-3">
-  <select
-    name="role"
-    value={formData.role}
-    onChange={handleInputChange}  // This ensures selection updates correctly
-    className="form-control"
-  >
-    <option value="admin">Admin</option>
-    <option value="operator">Operator</option>
-    <option value="manager">Manager</option>
-    <option value="security_guard">Security Guard</option>
-  </select>
+            <select
+  name="role"
+  value={formData.role}
+  onChange={handleInputChange}
+  className="form-control"
+>
+  <option value="admin">Admin</option>
+  <option value="operator">Operator</option>
+  <option value="manager">Manager</option>
+  <option value="security guard">Security Guard</option> {/* Changed from security_guard */}
+</select>
   {errors.role && <span className="text-danger">{errors.role}</span>}
 </div>
 

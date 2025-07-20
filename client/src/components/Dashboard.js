@@ -6,6 +6,7 @@ import { FiLink } from 'react-icons/fi';
 import { Link, useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import './Dashboard.css';
+import Chat from './Chat'
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -14,6 +15,8 @@ const Dashboard = ({ setIsLoggedIn }) => {
   const [showLogout, setShowLogout] = useState(false);
   const [first_name, setFirstName] = useState('');
   const [user, setUser] = useState(null);
+
+  
   const handleLogout = () => {
     setShowLogout(false);
     setIsLoggedIn(false);
@@ -73,7 +76,7 @@ const Dashboard = ({ setIsLoggedIn }) => {
       <div className="content-container flex-grow-1 p-3">
         <Container fluid>
           <div className="d-flex justify-content-between align-items-center mb-3 mx-10">
-            <h3><i style={{ fontWeight: '800' }}>Welcome, {first_name}</i></h3>
+            <h3><i style={{ fontWeight: '800' }}>Welcome, John</i></h3>
             <img 
               src={`${process.env.PUBLIC_URL}/Signout.svg`} 
               alt="Logout" 
@@ -248,6 +251,20 @@ const Dashboard = ({ setIsLoggedIn }) => {
             </Col>
           </Row>
         </Container>
+      </div>
+
+      {/* Chat Component - Fixed Position */}
+      <div
+        style={{
+          position: 'fixed',
+          bottom: '20px',
+          right: '20px',
+          width: '350px',
+          height: '500px',
+          zIndex: 1000,
+        }}
+      >
+        <Chat />
       </div>
     </div>
   );

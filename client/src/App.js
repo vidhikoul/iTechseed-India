@@ -23,6 +23,7 @@ import DefectDetection from './pages/DefectDetection/DefectDetection';
 import DefectChallan from './pages/DefectDetection/DefectChallan';
 import ClientManagement from './pages/adminpanel/ClientManagement/ClientManagement.js';
 import SupplierManagement from './pages/adminpanel/SupplierManagement/SupplierManagement.js';
+import ChallanGeneration from './pages/transactionsPage/ChallanGeneration.js';
 // import Clientcard from "./pages/adminpanel/Clientcard.js";
 // import SapDataImport from './pages/AdminPanel/SapDataImport';
 const Sidebar = () => {
@@ -43,7 +44,7 @@ const Sidebar = () => {
           <Link to="/defects" className="nav-link text-white">Defect Detection</Link>
         </li>
         <li className="nav-item mb-3">
-          <Link to="/challans" className="nav-link text-white">Challan Generation</Link>
+          <Link to="/challanGeneration" className="nav-link text-white">Challan Generation</Link>
         </li>
        
       </ul>
@@ -95,6 +96,7 @@ function App() {
               <Route path="/TransactionChallan" element={<TransactionChallan />} />
               <Route path="/defects" element={<DefectDetection/>} />
               <Route path="/defectChallan" element={<DefectChallan />} />
+              <Route path="/challanGeneration" element={<ChallanGeneration />} />
               {/* <Route path="/challan" element={<Challan />} /> */}
               <Route path="/DeviceManagement" element={<DeviceManagement/>}/>
               {/* <Route path="/SapDataImport" element={<SapDataImport/>} /> */}

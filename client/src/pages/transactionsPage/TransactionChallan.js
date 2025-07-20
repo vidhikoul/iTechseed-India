@@ -44,8 +44,7 @@ const TransactionChallan = () => {
 
     fetchChallan();
   }, [challan_no]);
-  
-  // ... rest of your component
+
   // PDF generation function - takes an ID parameter to identify which challan to download
   const handleDownloadPDF = (challanId) => {
     const input = document.getElementById(challanId);
@@ -153,235 +152,262 @@ const TransactionChallan = () => {
     }
     
     return (
-      <Card className="p-4 shadow-lg border rounded-md relative mb-8" style={{ maxWidth: "800px", margin: "0 auto" }}>
-        {/* Header with Title and Download Button */}
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold">{title}</h2>
-          <Download onClick={() => handleDownloadPDF(id)} className="w-6 h-6 cursor-pointer" />
-        </div>
-        
-        {/* Challan Content - Styled to match reference image */}
-        <div id={id} style={{ width: "100%", border: "1px solid #000" }}>
-          {/* Header Row - Two Columns: Left for Dana Logo, Right for Address & Heading */}
-          <div style={{ display: "flex", borderBottom: "1px solid #000" }}>
-            {/* Left Column - Dana Logo */}
-            <div style={{ width: "40%", textAlign: "center", padding: "15px", borderRight: "1px solid #000", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-              <img
-                src="/Danalogo.png"
-                alt="Dana Logo"
-                style={{ width: "100%", maxHeight: "100px", objectFit: "contain" }}
-              />
-            </div>
-            {/* Right Column - Company Address with Original for Buyer at top */}
-            <div style={{ width: "60%", textAlign: "center", padding: "10px" }}>
-              <div style={{ fontSize: "12px", marginBottom: "5px" }}>{type}</div>
-              <div style={{ fontSize: "16px", fontWeight: "bold" }}>DANA INDIA PRIVATE LIMITED</div>
-              <div style={{ fontSize: "11px", margin: "5px 0" }}>
-                VILLAGE BHAMBOLI, TALUKA - KHED, PUNE, MAHARASHTRA GAT NO. 51/1,<br />
-                51/2, 51/3, 52, 53-54, 56, 57, 58, 59 Pune 410501 Maharashtra India<br />
-                CIN No. :U74999PN2000PTC015131 PAN No. :AABCD1873A
-              </div>
-            </div>
+      <div className="challan-container" style={{ 
+        width: "100%", 
+        maxWidth: "210mm", // A4 width
+        margin: "0 auto 2rem auto",
+        aspectRatio: "210/297", // A4 aspect ratio
+        minHeight: "297mm" // A4 height
+      }}>
+        <Card className="p-4 shadow-lg border rounded-md relative h-full" style={{ 
+          backgroundColor: "white",
+          breakInside: "avoid"
+        }}>
+          {/* Header with Title and Download Button */}
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold">{title}</h2>
+            <Download onClick={() => handleDownloadPDF(id)} className="w-6 h-6 cursor-pointer hover:text-blue-600" />
           </div>
           
-          {/* Separate row for "Delivery Challan" heading */}
-          <div style={{ borderBottom: "1px solid #000", padding: "8px", textAlign: "center" }}>
-            <div style={{ fontSize: "18px", fontWeight: "bold" }}>Delivery Challan</div>
-          </div>
-
-          {/* Vendor & Challan Info - Two column layout */}
-          <div style={{ display: "flex", borderBottom: "1px solid #000" }}>
-            {/* Left Column - Vendor Info */}
-            <div style={{ width: "50%", padding: "10px", borderRight: "1px solid #000", fontSize: "12px" }}>
-              <div style={{ fontWeight: "bold" }}>Vendor {challan.vendor_code}</div>
-              <div>{challan.vendor_name}</div>
-              <div>{challan.vendor_address}</div>
-              <div>{challan.gstin_no}</div>
-              <div>GSTIN No. :</div>
-              <div>PAN No. :{challan.pan_no}</div>
-            </div>
-            {/* Right Column - Challan Details */}
-            <div style={{ verticalAlign: "top", width: "50%", padding: "10px", fontSize: "12px" }}>
-              <div style={{ fontSize: "12px" }}>
-                <strong>Challan No.</strong> :{challan.challan_no}
+          {/* Challan Content - Styled to match reference image */}
+          <div id={id} style={{ 
+            width: "100%", 
+            border: "1px solid #000",
+            backgroundColor: "white",
+            fontSize: "12px",
+            lineHeight: "1.2"
+          }}>
+            {/* Header Row - Two Columns: Left for Dana Logo, Right for Address & Heading */}
+            <div style={{ display: "flex", borderBottom: "1px solid #000" }}>
+              {/* Left Column - Dana Logo */}
+              <div style={{ 
+                width: "40%", 
+                textAlign: "center", 
+                padding: "15px", 
+                borderRight: "1px solid #000", 
+                display: "flex", 
+                flexDirection: "column", 
+                justifyContent: "center", 
+                alignItems: "center",
+                minHeight: "120px"
+              }}>
+                <img
+                  src="/Danalogo.png"
+                  alt="Dana Logo"
+                  style={{ width: "100%", maxHeight: "100px", objectFit: "contain" }}
+                />
               </div>
-              <div style={{ fontSize: "12px" }}>
-                <strong>Challan Date</strong> :{formatDate(challan.challan_date)}
-              </div>
-              <div style={{ fontSize: "12px" }}>
-                <strong>Vechicle No</strong> :{challan.vehicle_no}
-              </div>
-              <div style={{ fontSize: "12px" }}>
-                <strong>Transporter</strong> :{challan.transporter}
-              </div>
-              <div style={{ fontSize: "12px" }}>
-                <strong>Emp. Code</strong> :{challan.emp_code}
-              </div>
-              <div style={{ fontSize: "12px" }}>
-                <strong>Name</strong> :{challan.emp_name}
-              </div>
-            </div>
-          </div>
-
-          {/* Main Items Table - Removed "Tax Rates" title and fixed structure */}
-          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "10px" }}>
-            <thead>
-              <tr>
-                <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }} rowSpan="2">Sr No</th>
-                <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }} rowSpan="2">Material Code</th>
-                <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }} rowSpan="2">Material Description</th>
-                <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }} rowSpan="2">HSN Code</th>
-                <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }} rowSpan="2">Unit</th>
-                <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }} rowSpan="2">Qty</th>
-                <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }} rowSpan="2">Expected Return Date</th>
-                <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }} rowSpan="2">Taxable Amount</th>
-                <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }}>CGST Rate</th>
-                <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }}>SGST Rate</th>
-                <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }}>IGST Rate</th>
-              </tr>
-              <tr>
-                <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }}>Amount</th>
-                <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }}>Amount</th>
-                <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }}>Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }} rowSpan="2">01</td>
-                <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }} rowSpan="2">{challan.material_code}</td>
-                <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }} rowSpan="2">{challan.material_description}</td>
-                <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }} rowSpan="2">{challan.hsn_code}</td>
-                <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }} rowSpan="2">EA</td>
-                <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }} rowSpan="2">{challan.pallet_count}.000</td>
-                <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }} rowSpan="2">
-                  {/* Calculate return date: add 6 months to challan date */}
-                  {(() => {
-                    const date = new Date(challan.challan_date);
-                    date.setMonth(date.getMonth() + 6);
-                    return formatDate(date);
-                  })()}
-                </td>
-                <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }} rowSpan="2">
-                  {challan.taxable_amount.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                </td>
-                <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }}>{challan.cgst_rate}%</td>
-                <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }}>{challan.sgst_rate}%</td>
-                <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }}>
-                  {challan.igst_rate > 0 ? `${challan.igst_rate}%` : 'NA'}
-                </td>
-              </tr>
-              <tr>
-                <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }}>
-                  {challan.cgst_amount.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                </td>
-                <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }}>
-                  {challan.sgst_amount.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                </td>
-                <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }}>
-                  {challan.igst_amount.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-          {/* Amount Info */}
-          <div style={{ display: "flex", borderTop: "1px solid #000" }}>
-            {/* Left Column - Amount in Words */}
-            <div style={{ width: "50%", padding: "10px", borderRight: "1px solid #000", fontSize: "12px" }}>
-              <div><strong>Delivery Challan Value in Words :-</strong></div>
-              <div>{convertToWords(challan.total_amount)}</div>
-            </div>
-            {/* Right Column - Amount Details */}
-            <div style={{ width: "50%" }}>
-              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "12px" }}>
-                <tbody>
-                  <tr>
-                    <td style={{ padding: "5px", borderBottom: "1px solid #000" }}>Basic Amount</td>
-                    <td style={{ padding: "5px", textAlign: "right", borderBottom: "1px solid #000" }}>
-                      {challan.basic_amount.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style={{ padding: "5px", borderBottom: "1px solid #000" }}>CGST Amount</td>
-                    <td style={{ padding: "5px", textAlign: "right", borderBottom: "1px solid #000" }}>
-                      {challan.cgst_amount.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style={{ padding: "5px", borderBottom: "1px solid #000" }}>SGST Amount</td>
-                    <td style={{ padding: "5px", textAlign: "right", borderBottom: "1px solid #000" }}>
-                      {challan.sgst_amount.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style={{ padding: "5px", borderBottom: "1px solid #000" }}>IGST Amount</td>
-                    <td style={{ padding: "5px", textAlign: "right", borderBottom: "1px solid #000" }}>
-                      {challan.igst_amount.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style={{ padding: "5px", fontWeight: "bold" }}>Total</td>
-                    <td style={{ padding: "5px", textAlign: "right", fontWeight: "bold" }}>
-                      {challan.total_amount.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* Remarks */}
-          <div style={{ borderTop: "1px solid #000", padding: "10px", fontSize: "12px" }}>
-            <strong>Remarks : </strong>{challan.remarks}
-          </div>
-
-          {/* Large Blank Area for Signatures */}
-          <div style={{ height: "200px", borderTop: "1px solid #000" }}></div>
-
-          {/* Signature Footer */}
-          <div style={{ borderTop: "1px solid #000", padding: "10px" }}>
-            <div style={{ marginBottom: "10px", fontSize: "12px" }}>
-              <div style={{ fontSize: "11px", marginTop: "5px" }}>
-                Digitally Signed By:<br />
-                {challan.digitally_signed_by}<br />
-                {new Date(challan.signed_on).toLocaleString('en-IN', { 
-                  weekday: 'short', 
-                  day: '2-digit',
-                  month: 'short',
-                  year: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit',
-                  second: '2-digit',
-                  hour12: false
-                })}<br />
-                {challan.authorised_by}
+              {/* Right Column - Company Address with Original for Buyer at top */}
+              <div style={{ width: "60%", textAlign: "center", padding: "10px" }}>
+                <div style={{ fontSize: "12px", marginBottom: "5px", fontWeight: "bold" }}>{type}</div>
+                <div style={{ fontSize: "16px", fontWeight: "bold" }}>DANA INDIA PRIVATE LIMITED</div>
+                <div style={{ fontSize: "11px", margin: "5px 0" }}>
+                  VILLAGE BHAMBOLI, TALUKA - KHED, PUNE, MAHARASHTRA GAT NO. 51/1,<br />
+                  51/2, 51/3, 52, 53-54, 56, 57, 58, 59 Pune 410501 Maharashtra India<br />
+                  CIN No. :U74999PN2000PTC015131 PAN No. :AABCD1873A
+                </div>
               </div>
             </div>
             
-            <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px", fontSize: "12px" }}>
-              <span>Authorised By</span>
-              <span>Prepared By</span>
-              <span>Receivers Sign</span>
+            {/* Separate row for "Delivery Challan" heading */}
+            <div style={{ borderBottom: "1px solid #000", padding: "8px", textAlign: "center" }}>
+              <div style={{ fontSize: "18px", fontWeight: "bold" }}>Delivery Challan</div>
+            </div>
+
+            {/* Vendor & Challan Info - Two column layout */}
+            <div style={{ display: "flex", borderBottom: "1px solid #000" }}>
+              {/* Left Column - Vendor Info */}
+              <div style={{ width: "50%", padding: "10px", borderRight: "1px solid #000", fontSize: "12px" }}>
+                <div style={{ fontWeight: "bold" }}>Customer Code: {challan.vendor_code}</div>
+                <div>{challan.vendor_name}</div>
+                <div>{challan.vendor_address}</div>
+                <div>{challan.gstin_no}</div>
+                <div>GSTIN No.: </div>
+                <div>PAN No.: {challan.pan_no}</div>
+              </div>
+              {/* Right Column - Challan Details */}
+              <div style={{ verticalAlign: "top", width: "50%", padding: "10px", fontSize: "12px" }}>
+                <div style={{ fontSize: "12px" }}>
+                  <strong>Challan No.</strong>: {challan.challan_no}
+                </div>
+                <div style={{ fontSize: "12px" }}>
+                  <strong>Challan Date</strong>: {formatDate(challan.challan_date)}
+                </div>
+                <div style={{ fontSize: "12px" }}>
+                  <strong>Vechicle No</strong>: {challan.vehicle_no}
+                </div>
+                <div style={{ fontSize: "12px" }}>
+                  <strong>Transporter</strong>: {challan.transporter}
+                </div>
+                <div style={{ fontSize: "12px" }}>
+                  <strong>Emp. Code</strong>: {challan.emp_code}
+                </div>
+                <div style={{ fontSize: "12px" }}>
+                  <strong>Name</strong>:{challan.emp_name}
+                </div>
+              </div>
+            </div>
+
+            {/* Main Items Table */}
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "10px" }}>
+              <thead>
+                <tr>
+                  <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }} rowSpan="2">Sr No</th>
+                  <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }} rowSpan="2">Material Code</th>
+                  <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }} rowSpan="2">Material Description</th>
+                  <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }} rowSpan="2">HSN Code</th>
+                  <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }} rowSpan="2">Unit</th>
+                  <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }} rowSpan="2">Qty</th>
+                  <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }} rowSpan="2">Expected Return Date</th>
+                  <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }} rowSpan="2">Taxable Amount</th>
+                  <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }}>CGST Rate</th>
+                  <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }}>SGST Rate</th>
+                  <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }}>IGST Rate</th>
+                </tr>
+                <tr>
+                  <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }}>Amount</th>
+                  <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }}>Amount</th>
+                  <th style={{ border: "1px solid #000", padding: "4px", textAlign: "center", fontWeight: "bold" }}>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }} rowSpan="2">01</td>
+                  <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }} rowSpan="2">{challan.material_code}</td>
+                  <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }} rowSpan="2">{challan.material_description}</td>
+                  <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }} rowSpan="2">{challan.hsn_code}</td>
+                  <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }} rowSpan="2">EA</td>
+                  <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }} rowSpan="2">{challan.pallet_count}.000</td>
+                  <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }} rowSpan="2">
+                    {/* Calculate return date: add 6 months to challan date */}
+                    {(() => {
+                      const date = new Date(challan.challan_date);
+                      date.setMonth(date.getMonth() + 6);
+                      return formatDate(date);
+                    })()}
+                  </td>
+                  <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }} rowSpan="2">
+                    {challan.taxable_amount.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                  </td>
+                  <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }}>{challan.cgst_rate}%</td>
+                  <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }}>{challan.sgst_rate}%</td>
+                  <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }}>
+                    {challan.igst_rate > 0 ? `${challan.igst_rate}%` : 'NA'}
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }}>
+                    {challan.cgst_amount.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                  </td>
+                  <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }}>
+                    {challan.sgst_amount.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                  </td>
+                  <td style={{ border: "1px solid #000", padding: "4px", textAlign: "center" }}>
+                    {challan.igst_amount.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            {/* Amount Info */}
+            <div style={{ display: "flex", borderTop: "1px solid #000" }}>
+              {/* Left Column - Amount in Words */}
+              <div style={{ width: "50%", padding: "10px", borderRight: "1px solid #000", fontSize: "12px" }}>
+                <div><strong>Delivery Challan Value in Words :-</strong></div>
+                <div>{convertToWords(challan.total_amount)}</div>
+              </div>
+              {/* Right Column - Amount Details */}
+              <div style={{ width: "50%" }}>
+                <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "12px" }}>
+                  <tbody>
+                    <tr>
+                      <td style={{ padding: "5px", borderBottom: "1px solid #000" }}>Basic Amount</td>
+                      <td style={{ padding: "5px", textAlign: "right", borderBottom: "1px solid #000" }}>
+                        {challan.basic_amount.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: "5px", borderBottom: "1px solid #000" }}>CGST Amount</td>
+                      <td style={{ padding: "5px", textAlign: "right", borderBottom: "1px solid #000" }}>
+                        {challan.cgst_amount.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: "5px", borderBottom: "1px solid #000" }}>SGST Amount</td>
+                      <td style={{ padding: "5px", textAlign: "right", borderBottom: "1px solid #000" }}>
+                        {challan.sgst_amount.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: "5px", borderBottom: "1px solid #000" }}>IGST Amount</td>
+                      <td style={{ padding: "5px", textAlign: "right", borderBottom: "1px solid #000" }}>
+                        {challan.igst_amount.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: "5px", fontWeight: "bold" }}>Total</td>
+                      <td style={{ padding: "5px", textAlign: "right", fontWeight: "bold" }}>
+                        {challan.total_amount.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Remarks */}
+            <div style={{ borderTop: "1px solid #000", padding: "10px", fontSize: "12px" }}>
+              <strong>Remarks : </strong>{challan.remarks}
+            </div>
+
+            {/* Large Blank Area for Signatures */}
+            <div style={{ height: "150px", borderTop: "1px solid #000" }}></div>
+
+            {/* Signature Footer */}
+            <div style={{ borderTop: "1px solid #000", padding: "10px" }}>
+              <div style={{ marginBottom: "10px", fontSize: "12px" }}>
+                <div style={{ fontSize: "11px", marginTop: "5px" }}>
+                  Digitally Signed By:<br />
+                  {challan.digitally_signed_by}<br />
+                  {new Date(challan.signed_on).toLocaleString('en-IN', { 
+                    weekday: 'short', 
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false
+                  })}<br />
+                  {challan.authorised_by}
+                </div>
+              </div>
+              
+              <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px", fontSize: "12px" }}>
+                <span>Authorised By</span>
+                <span>Prepared By</span>
+                <span>Receivers Sign</span>
+              </div>
+            </div>
+
+            {/* Footer Text */}
+            <div style={{ borderTop: "1px solid #000", padding: "10px", fontSize: "10px", textAlign: "center" }}>
+              Registered Office: Dana India Private Limited Survey No. 279/1, Raisoni Ind. Park, Hinjawadi Phase-II Village : Maan, Tal:
             </div>
           </div>
-
-          {/* Footer Text */}
-          <div style={{ borderTop: "1px solid #000", padding: "10px", fontSize: "10px", textAlign: "center" }}>
-            Registered Office: Dana India Private Limited Survey No. 279/1, Raisoni Ind. Park, Hinjawadi Phase-II Village : Maan, Tal:
-          </div>
-        </div>
-      </Card>
+        </Card>
+      </div>
     );
   };
 
   // Show loading or error state
   if (loading) {
     return (
-      <div className="flex font-medium">
-        <div className="w-1/4 bg-gray-200 min-h-screen p-4">
+      <div className="flex font-medium min-h-screen">
+        <div className="w-1/4 bg-gray-200 min-h-screen p-4 fixed left-0 top-0">
           <Sidebar />
         </div>
-        <div className="w-3/4 p-6 bg-white flex justify-center items-center">
+        <div className="w-3/4 ml-[25%] p-6 bg-white flex justify-center items-center">
           <p>Loading challan data...</p>
         </div>
       </div>
@@ -390,11 +416,11 @@ const TransactionChallan = () => {
 
   if (error) {
     return (
-      <div className="flex font-medium">
-        <div className="w-1/4 bg-gray-200 min-h-screen p-4">
+      <div className="flex font-medium min-h-screen">
+        <div className="w-1/4 bg-gray-200 min-h-screen p-4 fixed left-0 top-0">
           <Sidebar />
         </div>
-        <div className="w-3/4 p-6 bg-white flex justify-center items-center">
+        <div className="w-3/4 ml-[25%] p-6 bg-white flex justify-center items-center">
           <p className="text-red-500">Error: {error}</p>
         </div>
       </div>
@@ -403,11 +429,11 @@ const TransactionChallan = () => {
 
   if (!challan) {
     return (
-      <div className="flex font-medium">
-        <div className="w-1/4 bg-gray-200 min-h-screen p-4">
+      <div className="flex font-medium min-h-screen">
+        <div className="w-1/4 bg-gray-200 min-h-screen p-4 fixed left-0 top-0">
           <Sidebar />
         </div>
-        <div className="w-3/4 p-6 bg-white flex justify-center items-center">
+        <div className="w-3/4 ml-[25%] p-6 bg-white flex justify-center items-center">
           <p>No challan found with ID: {challan_no}</p>
         </div>
       </div>
@@ -415,22 +441,30 @@ const TransactionChallan = () => {
   }
 
   return (
-    <div id="continer" className="flex font-medium">
-      {/* Sidebar */}
-      <div id="left_cont" className="w-1/4 bg-gray-200 min-h-screen p-4">
+    <div className="flex font-medium min-h-screen">
+      {/* Fixed Sidebar */}
+      <div className="w-1/4 bg-gray-200 min-h-screen p-4 fixed left-0 top-0 z-10">
         <Sidebar />
       </div>
 
-      {/* Main Content */}
-      <div id="right_cont" className="w-3/4 p-6 bg-white">
-        {/* Original for Buyer Challan */}
-        {createChallan(challan, "Original for Buyer", `challan-${challan.challan_no}-original`)}
-        
-        {/* Duplicate for Transporter Challan */}
-        {createChallan(challan, "Duplicate for Transporter", `challan-${challan.challan_no}-duplicate`)}
-        
-        {/* Triplicate Challan */}
-        {createChallan(challan, "Triplicate", `challan-${challan.challan_no}-triplicate`)}
+      {/* Main Content - with left margin to account for fixed sidebar */}
+      <div className="w-3/4 ml-[25%] bg-white">
+        {/* Centered container for all content - moved more to the right */}
+        <div className="flex flex-col items-center justify-center min-h-screen py-8 px-4 ml-16">
+          <h1 className="text-2xl font-bold mb-6 text-center">Transaction Challans</h1>
+          
+          {/* Challans Container - Centered */}
+          <div className="challans-wrapper w-full max-w-4xl flex flex-col items-center">
+            {/* Original for Buyer Challan */}
+            {createChallan(challan, "Original for Buyer", `challan-${challan.challan_no}-original`)}
+            
+            {/* Duplicate for Transporter Challan */}
+            {createChallan(challan, "Duplicate for Transporter", `challan-${challan.challan_no}-duplicate`)}
+            
+            {/* Triplicate Challan */}
+            {createChallan(challan, "Triplicate", `challan-${challan.challan_no}-triplicate`)}
+          </div>
+        </div>
       </div>
     </div>
   );

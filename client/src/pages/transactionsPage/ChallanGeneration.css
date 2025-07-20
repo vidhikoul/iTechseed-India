@@ -1,0 +1,193 @@
+/* Make sure modal dialog is centered and responsive */
+.modal-dialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 100%;
+    height: 100%;
+  }
+  
+  /* Modal Content Styling */
+  .modal-content {
+    width: 90%;
+    max-width: 1000px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 30px;
+    border-radius: 20px;
+    margin: auto;
+    background-color: #fff;
+  }
+  
+  /* Form Input Styling */
+  #model_form .form-control {
+    background: #D8DBE2;
+    border-radius: 15px;
+    padding: 10px;
+    border: none;
+    font-size: 14px;
+  }
+  
+  /* Read-only field styling */
+  #model_form .form-control[readonly] {
+    background: #f8f9fa;
+    color: #6c757d;
+    cursor: not-allowed;
+  }
+  
+  /* Select dropdown styling */
+  #model_form .form-select {
+    background: #D8DBE2;
+    border-radius: 15px;
+    padding: 10px;
+    border: none;
+    font-size: 14px;
+  }
+  
+  /* Textarea styling */
+  #model_form textarea.form-control {
+    background: #D8DBE2;
+    border-radius: 15px;
+    padding: 10px;
+    border: none;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 60px;
+  }
+  
+  /* Label Styling */
+  #model_form .form-label {
+    font-size: 13px;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: 500;
+  }
+  
+  /* Button Styling */
+  #model_form .btn-secondary,
+  #model_form .btn-primary {
+    background: #373F51;
+    border-radius: 15px;
+    padding: 10px;
+    width: 100%;
+    font-size: 14px;
+    margin-top: 28px;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  #model_form .btn-secondary:hover,
+  #model_form .btn-primary:hover {
+    background: #2c3242;
+  }
+  
+  /* Special styling for total amount field */
+  #model_form input[name="total_amount"] {
+    background: #e3f2fd !important;
+    font-weight: bold !important;
+    font-size: 16px !important;
+    color: #1976d2 !important;
+  }
+  
+  .modal-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #222;
+  }
+  
+  /* Trigger Button */
+  #btn {
+    background-color: #373F51;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: none;
+    font-size: 14px;
+    margin: 20px 0;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 500;
+  }
+  
+  #btn:hover {
+    background-color: #2c3242;
+    cursor: pointer;
+    transform: translateY(-1px);
+  }
+  
+  #btn:active {
+    transform: translateY(0);
+  }
+  
+  /* Section Headers (if needed for visual separation) */
+  .form-section-header {
+    font-size: 16px;
+    font-weight: 600;
+    color: #373F51;
+    margin: 20px 0 10px 0;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #D8DBE2;
+  }
+  
+  /* Focus states for better accessibility */
+  #model_form .form-control:focus,
+  #model_form .form-select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(55, 63, 81, 0.2);
+    border: 2px solid #373F51;
+  }
+  
+  /* Input validation styling */
+  #model_form .form-control:invalid {
+    border: 2px solid #dc3545;
+  }
+  
+  #model_form .form-control:valid {
+    border: 2px solid #28a745;
+  }
+  
+  /* Scroll support on smaller screens */
+  @media (max-height: 700px) {
+    .modal-content {
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+  }
+  
+  /* Mobile friendly layout */
+  @media (max-width: 768px) {
+    .modal-content {
+      width: 95%;
+      padding: 20px;
+    }
+    
+    #model_form .form-label {
+      font-size: 12px;
+    }
+    
+    #model_form .form-control,
+    #model_form .form-select {
+      font-size: 13px;
+      padding: 8px;
+    }
+    
+    #btn {
+      padding: 10px 20px;
+      font-size: 13px;
+    }
+  }
+  
+  /* Tablet layout adjustments */
+  @media (max-width: 992px) {
+    .modal-content {
+      width: 95%;
+      max-width: 900px;
+    }
+  }
+  
+  /* Large screen optimizations */
+  @media (min-width: 1200px) {
+    .modal-content {
+      max-width: 1100px;
+    }
+  }

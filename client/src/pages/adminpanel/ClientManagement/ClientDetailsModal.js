@@ -1,26 +1,19 @@
 import React, { useState, useEffect } from "react";
 import './ClientDetailsModal.css';
 
-const ClientDetailsModal = ({ client, onClose }) => {
+const ClientDetailsModal = ({ client, onClose, onEditClick, onDelete }) => {
   const [clientDetails, setClientDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [retryCount, setRetryCount] = useState(0);
 
   const fetchClientDetails = () => {
-    if (!client) {
+    if (!client || !client.customer_id) {
       setLoading(false);
       return;
     }
 
-    const clientId = client.customer_id || client.customer_existing_id || client.customer_exisitng_id;
-    if (!clientId) {
-      setLoading(false);
-      return;
-    }
-
-    const apiUrl = `http://localhost:8800/api/customers/${clientId}`;
-    console.log(`Fetching client details from: ${apiUrl}`);
+    const apiUrl = `http://localhost:8800/api/clients/${client.customer_id}`;
     
     setLoading(true);
     setError(null);
@@ -34,8 +27,7 @@ const ClientDetailsModal = ({ client, onClose }) => {
         return data;
       })
       .then(data => {
-        console.log("Fetched client details:", data);
-        if (data && (data.customer_id || data.customer_existing_id || data.customer_exisitng_id)) {
+        if (data && data.customer_id) {
           setClientDetails(data);
         } else {
           throw new Error("Invalid client data received");
@@ -63,10 +55,8 @@ const ClientDetailsModal = ({ client, onClose }) => {
 
   const displayData = clientDetails || client;
 
-  const getFieldValue = (fieldName, alternateFieldName) => {
-    return displayData[fieldName] || 
-           (alternateFieldName && displayData[alternateFieldName]) || 
-           "N/A";
+  const getFieldValue = (fieldName) => {
+    return displayData[fieldName] || "N/A";
   };
 
   return (
@@ -112,13 +102,16 @@ const ClientDetailsModal = ({ client, onClose }) => {
             <h4>Basic Information</h4>
             <div className="client-details-grid">
               <div className="client-details-item">
-                <strong>Customer ID:</strong> {getFieldValue('customer_id')}
+                <strong>Client ID:</strong> {getFieldValue('customer_id')}
               </div>
               <div className="client-details-item">
-                <strong>Existing ID:</strong> {getFieldValue('customer_existing_id', 'customer_exisitng_id')}
+                <strong>Name:</strong> {getFieldValue('customer_name')}
               </div>
               <div className="client-details-item">
-                <strong>Previous Account No:</strong> {getFieldValue('previous_account_number')}
+                <strong>Contact Number:</strong> {getFieldValue('contact_number')}
+              </div>
+              <div className="client-details-item">
+                <strong>Email:</strong> {getFieldValue('email')}
               </div>
             </div>
           </div>
@@ -154,25 +147,34 @@ const ClientDetailsModal = ({ client, onClose }) => {
                 <strong>GSTIN:</strong> {getFieldValue('gstin')}
               </div>
               <div className="client-details-item">
-                <strong>Market Code:</strong> {getFieldValue('market_code')}
-              </div>
-              <div className="client-details-item">
-                <strong>CST No:</strong> {getFieldValue('cst_no')}
-              </div>
-              <div className="client-details-item">
-                <strong>LST No:</strong> {getFieldValue('lst_no')}
-              </div>
-              <div className="client-details-item">
                 <strong>PAN No:</strong> {getFieldValue('pan_no')}
               </div>
             </div>
           </div>
+        </div>
 
-          <div className="modal-footer">
-            <button className="btn btn-secondary" onClick={onClose}>
-              Close
-            </button>
-          </div>
+        <div className="modal-footer">
+          <button 
+            className="btn btn-warning me-2" 
+            onClick={onEditClick}
+            disabled={loading}
+          >
+            Edit
+          </button>
+          <button 
+            className="btn btn-danger me-2" 
+            onClick={onDelete}
+            disabled={loading}
+          >
+            Delete
+          </button>
+          <button 
+            className="btn btn-secondary" 
+            onClick={onClose}
+            disabled={loading}
+          >
+            Close
+          </button>
         </div>
       </div>
     </div>
